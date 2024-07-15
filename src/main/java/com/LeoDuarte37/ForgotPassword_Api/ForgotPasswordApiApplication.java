@@ -9,5 +9,4 @@ public class ForgotPasswordApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ForgotPasswordApiApplication.class, args);
 	}
-
 }
