@@ -1,11 +1,10 @@
 package com.LeoDuarte37.ForgotPassword_Api.dto;
 
-import com.LeoDuarte37.ForgotPassword_Api.enumeration.Role;
 import com.LeoDuarte37.ForgotPassword_Api.model.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public record AddLoginDto(
+public record RegisterLoginDto(
         @NotBlank
         String username,
 

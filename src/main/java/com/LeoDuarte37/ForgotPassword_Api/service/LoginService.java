@@ -1,12 +1,13 @@
 package com.LeoDuarte37.ForgotPassword_Api.service;
 
-import com.LeoDuarte37.ForgotPassword_Api.dto.AddLoginDto;
-import com.LeoDuarte37.ForgotPassword_Api.dto.LoginDto;
+import com.LeoDuarte37.ForgotPassword_Api.dto.RegisterLoginDto;
+import com.LeoDuarte37.ForgotPassword_Api.dto.AuthenticateLoginDto;
 import com.LeoDuarte37.ForgotPassword_Api.dto.SessionLoginDto;
 
 public interface LoginService {
 
-    void register(AddLoginDto addLoginDto);
-    SessionLoginDto authenticate(LoginDto loginDto);
+    void register(RegisterLoginDto registerLoginDto);
+    SessionLoginDto authenticate(AuthenticateLoginDto authenticateLoginDto);
     void verifyCode();
+
 }
