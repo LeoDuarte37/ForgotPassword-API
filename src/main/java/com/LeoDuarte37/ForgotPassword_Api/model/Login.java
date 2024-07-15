@@ -23,11 +23,19 @@ public class Login {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Login(String username, String password, User user, int keyRole) {
+    @NotNull
+    private boolean isTwoFactorEnable;
+
+    @NotBlank
+    private String secret;
+
+    public Login(String username, String password, User user, Role role, boolean isTwoFactorEnable, String secret) {
         this.username = username;
         this.password = password;
         this.user = user;
-        this.role = Role.getRoleByKey(keyRole);
+        this.role = role;
+        this.isTwoFactorEnable = isTwoFactorEnable;
+        this.secret = secret;
     }
 
     // Getters and Setters
@@ -61,5 +69,21 @@ public class Login {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public boolean isTwoFactorEnable() {
+        return isTwoFactorEnable;
+    }
+
+    public void setTwoFactorEnable(boolean twoFactorEnable) {
+        isTwoFactorEnable = twoFactorEnable;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 }
