@@ -1,21 +1,19 @@
-package com.LeoDuarte37.ForgotPassword_Api.controller;
+package com.LeoDuarte37.ForgotPassword_Api.resource;
 
 import com.LeoDuarte37.ForgotPassword_Api.dto.AuthenticateLoginDto;
 import com.LeoDuarte37.ForgotPassword_Api.dto.RegisterLoginDto;
 import com.LeoDuarte37.ForgotPassword_Api.dto.SessionLoginDto;
 import com.LeoDuarte37.ForgotPassword_Api.dto.VerifiyCodeDto;
 import com.LeoDuarte37.ForgotPassword_Api.service.LoginService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/auth")
-public class LoginController {
+public class LoginResource {
 
     @Autowired
     private LoginService loginService;
