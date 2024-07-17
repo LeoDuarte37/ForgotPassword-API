@@ -1,4 +1,4 @@
-package com.LeoDuarte37.ForgotPassword_Api.security;
+package com.LeoDuarte37.ForgotPassword_Api.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-public class JwtService {
+public class JwtServiceImpl {
 
     @Value("${auth.jwt.token.secret}")
     private final String SECRET_KEY;
@@ -20,7 +20,7 @@ public class JwtService {
     @Value("${auth.jwt.token.expiration}")
     private final Integer EXPIRATION;
 
-    public JwtService(String secretKey, Integer expiration) {
+    public JwtServiceImpl(String secretKey, Integer expiration) {
         SECRET_KEY = secretKey;
         EXPIRATION = expiration;
     }

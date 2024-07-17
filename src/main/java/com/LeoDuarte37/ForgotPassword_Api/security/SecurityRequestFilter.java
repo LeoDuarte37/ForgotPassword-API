@@ -1,6 +1,7 @@
 package com.LeoDuarte37.ForgotPassword_Api.security;
 
 import com.LeoDuarte37.ForgotPassword_Api.exception.AuthHeaderNotFoundException;
+import com.LeoDuarte37.ForgotPassword_Api.service.impl.JwtServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import java.io.IOException;
 public class SecurityRequestFilter extends OncePerRequestFilter {
 
     @Autowired
-    private JwtService jwtService;
+    private JwtServiceImpl jwtServiceImpl;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -29,7 +30,7 @@ public class SecurityRequestFilter extends OncePerRequestFilter {
         try {
             String token = extractToken(request);
 
-            var username = jwtService.verifyToken(token);
+            var username = jwtServiceImpl.verifyToken(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
@@ -40,7 +41,7 @@ public class SecurityRequestFilter extends OncePerRequestFilter {
 
             filterChain.doFilter(request, response);
         } catch (AuthHeaderNotFoundException | UsernameNotFoundException | ServletException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());;
         }
     }
 
