@@ -26,16 +26,14 @@ public class Login {
     @NotNull
     private boolean isTwoFactorEnable;
 
-    @NotBlank
     private String secret;
 
-    public Login(String username, String password, User user, Role role, boolean isTwoFactorEnable, String secret) {
+    public Login(String username, String password, User user, Role role, boolean isTwoFactorEnable) {
         this.username = username;
         this.password = password;
         this.user = user;
         this.role = role;
         this.isTwoFactorEnable = isTwoFactorEnable;
-        this.secret = secret;
     }
 
     // Getters and Setters
