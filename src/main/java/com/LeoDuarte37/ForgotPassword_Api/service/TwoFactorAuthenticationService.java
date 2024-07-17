@@ -1,10 +1,9 @@
 package com.LeoDuarte37.ForgotPassword_Api.service;
 
+import com.LeoDuarte37.ForgotPassword_Api.dto.SessionLoginDto;
+import com.LeoDuarte37.ForgotPassword_Api.dto.VerifiyCodeDto;
+
 public interface TwoFactorAuthenticationService {
 
-    String generateNewSecret();
-
-    String generateQrCodeImageUri(String secret);
-
-    boolean isOtpValid(String secret, String code);
+    SessionLoginDto verifyCode(VerifiyCodeDto verifiyCodeDto);
 }

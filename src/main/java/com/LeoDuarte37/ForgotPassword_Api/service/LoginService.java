@@ -7,7 +7,5 @@ import com.LeoDuarte37.ForgotPassword_Api.dto.SessionLoginDto;
 public interface LoginService {
 
     void register(RegisterLoginDto registerLoginDto);
-    SessionLoginDto authenticate(AuthenticateLoginDto authenticateLoginDto);
-    void verifyCode();
-
+    void authenticate(AuthenticateLoginDto authenticateLoginDto);
 }
