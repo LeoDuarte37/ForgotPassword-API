@@ -1,5 +1,6 @@
 package com.LeoDuarte37.ForgotPassword_Api.service.impl;
 
+import com.LeoDuarte37.ForgotPassword_Api.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -8,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class EmailServiceImpl {
+public class EmailServiceImpl implements EmailService {
 
     @Value("${spring.mail.username}")
     private String from;
@@ -31,7 +32,7 @@ public class EmailServiceImpl {
         simpleMailMessage.setFrom(from);
         simpleMailMessage.setTo(to);
         simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText("Your verification code: " + message);
+        simpleMailMessage.setText(message);
 
         return simpleMailMessage;
     }

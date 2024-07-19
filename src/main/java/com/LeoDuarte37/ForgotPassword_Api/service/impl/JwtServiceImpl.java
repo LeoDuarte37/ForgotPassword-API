@@ -1,9 +1,13 @@
 package com.LeoDuarte37.ForgotPassword_Api.service.impl;
 
+import com.LeoDuarte37.ForgotPassword_Api.service.JwtService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,22 +16,17 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 @Service
-public class JwtServiceImpl {
+public class JwtServiceImpl implements JwtService {
 
     @Value("${auth.jwt.token.secret}")
-    private final String SECRET_KEY;
+    private String secret;
 
     @Value("${auth.jwt.token.expiration}")
-    private final Integer EXPIRATION;
-
-    public JwtServiceImpl(String secretKey, Integer expiration) {
-        SECRET_KEY = secretKey;
-        EXPIRATION = expiration;
-    }
+    private Integer expiration;
 
     public String generateToken(String username) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
+            Algorithm algorithm = Algorithm.HMAC256(secret);
 
             return JWT.create()
                     .withIssuer("ForgotPassword-Api")
@@ -42,7 +41,7 @@ public class JwtServiceImpl {
 
     public String verifyToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
+            Algorithm algorithm = Algorithm.HMAC256(secret);
 
             return JWT.require(algorithm)
                     .withIssuer("ForgotPassword-Api")
@@ -56,6 +55,6 @@ public class JwtServiceImpl {
     }
 
     private Instant generateDateExpiration() {
-        return LocalDateTime.now().plusHours(EXPIRATION).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(expiration).toInstant(ZoneOffset.of("-03:00"));
     }
 }

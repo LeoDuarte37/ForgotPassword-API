@@ -23,7 +23,8 @@ public class Login {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private String code;
+    public Login() {
+    }
 
     public Login(String username, String password, User user, Role role) {
         this.username = username;
@@ -63,13 +64,5 @@ public class Login {
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 }

@@ -1,12 +1,13 @@
 package com.LeoDuarte37.ForgotPassword_Api.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public record VerifiyCodeDto(
+public record VerifiyOtpDto(
         @NotBlank
         String username,
 
-        @NotBlank
-        String code
+        @NotNull
+        Integer otp
     ) {
 }

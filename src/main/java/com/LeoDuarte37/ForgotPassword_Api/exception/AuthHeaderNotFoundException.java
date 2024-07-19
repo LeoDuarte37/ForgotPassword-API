@@ -1,6 +1,6 @@
 package com.LeoDuarte37.ForgotPassword_Api.exception;
 
-public class AuthHeaderNotFoundException extends Exception {
+public class AuthHeaderNotFoundException extends RuntimeException {
 
     public AuthHeaderNotFoundException(String message) {
         super(message);
