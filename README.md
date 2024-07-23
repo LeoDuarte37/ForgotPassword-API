@@ -1,2 +1,1 @@
-
-![Design sem nome](https://github.com/user-attachments/assets/7987d8c8-54a9-49b3-824f-9db94759987d)
+![Design sem nome (1)](https://github.com/user-attachments/assets/7477546a-f24b-46ac-b5e1-1e1c477dcd8a)
