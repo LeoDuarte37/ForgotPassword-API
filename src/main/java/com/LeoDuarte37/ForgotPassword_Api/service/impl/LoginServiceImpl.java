@@ -13,6 +13,7 @@ import com.LeoDuarte37.ForgotPassword_Api.service.LoginService;
 import com.LeoDuarte37.ForgotPassword_Api.service.OtpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,16 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 
+/**
+ * <h1>LoginServiceImpl</h1>
+ * <p>
+ *     This class is responsible for implementing methods
+ *     specified in the LoginService.
+ * </p>
+ *
+ * @author Leonardo
+ * @version 1.0
+ */
 @Service
 public class LoginServiceImpl implements LoginService {
 
@@ -43,6 +54,11 @@ public class LoginServiceImpl implements LoginService {
     private LoginMapper loginMapper;
 
     @Override
+    public Optional<Login> getById(String username) {
+        return loginRepository.findById(username);
+    }
+
+    @Override
     public void register(RegisterLoginDto registerLoginDto) throws ResponseStatusException {
         if (loginRepository.existsById(registerLoginDto.username())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username unavailable!");
@@ -54,17 +70,37 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public void authenticate(AuthenticateLoginDto authenticateLoginDto) throws ResponseStatusException {
         try {
-            Optional<Login> login = verifyCredentials(authenticateLoginDto);
+            Optional<Login> login = verifyCredentials(
+                    authenticateLoginDto.username(),
+                    authenticateLoginDto.password()
+            );
+
             if(login.isPresent()) {
                 Integer otp = otpService.generateOtp(login.get().getUsername());
-                emailService.sendEmail(
+
+                SimpleMailMessage mailMessage = emailService.createSimpleMailMessage(
                         login.get().getUser().getEmail(),
                         "Two Factor Authentication",
                         "Your verification code: " + otp
                 );
+
+                emailService.sendEmail(mailMessage);
             }
         } catch (ResponseStatusException e) {
             throw e;
+        }
+    }
+
+    @Override
+    public Optional<Login> verifyCredentials(String username, String password) throws ResponseStatusException {
+        var credentials = new UsernamePasswordAuthenticationToken(username, password);
+
+        Authentication authentication = authenticationManager.authenticate(credentials);
+
+        if (authentication.isAuthenticated()) {
+            return getById(username);
+        } else {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid credentials!");
         }
     }
 
@@ -76,25 +112,11 @@ public class LoginServiceImpl implements LoginService {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid OTP");
         }
 
-        return loginRepository.findById(verifiyOtpDto.username())
+        return getById(verifiyOtpDto.username())
                 .map(entity -> {
                     String token = jwtService.generateToken(entity.getUsername());
                     return loginMapper.toSession(entity, token);
-                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!"));
-    }
-
-    private Optional<Login> verifyCredentials(AuthenticateLoginDto authenticateLoginDto) throws ResponseStatusException {
-        var credentials = new UsernamePasswordAuthenticationToken(
-                authenticateLoginDto.username(),
-                authenticateLoginDto.password()
-        );
-
-        Authentication authentication = authenticationManager.authenticate(credentials);
-
-        if (authentication.isAuthenticated()) {
-            return loginRepository.findById(authenticateLoginDto.username());
-        } else {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid credentials!");
-        }
+                })
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found!"));
     }
 }

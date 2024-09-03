@@ -9,6 +9,16 @@ import org.springframework.stereotype.Service;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * <h1>OtpServiceImpl</h1>
+ * <p>
+ *     This class is responsible for implementing methods
+ *     specified in the OtpService.
+ * </p>
+ *
+ * @author Leonardo
+ * @version 1.0
+ */
 @Service
 public class OtpServiceImpl implements OtpService {
 

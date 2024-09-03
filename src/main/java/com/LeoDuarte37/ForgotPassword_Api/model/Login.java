@@ -5,6 +5,16 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+/**
+ * <h1>Login</h1>
+ * <p>
+ *     This class contains the main attributes
+ *     to perform user authentication.
+ * </p>
+ *
+ * @author Leonardo
+ * @version 1.0
+ */
 @Entity
 @Table(name = "tb_login")
 public class Login {
@@ -22,9 +32,6 @@ public class Login {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    public Login() {
-    }
 
     public Login(String username, String password, User user, Role role) {
         this.username = username;

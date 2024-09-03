@@ -15,6 +15,16 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
+/**
+ * <h1>JwtServiceImpl</h1>
+ * <p>
+ *     This class is responsible for implementing methods
+ *     specified in the JwtService.
+ * </p>
+ *
+ * @author Leonardo
+ * @version 1.0
+ */
 @Service
 public class JwtServiceImpl implements JwtService {
 

@@ -3,6 +3,16 @@ package com.LeoDuarte37.ForgotPassword_Api.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * <h1>User</h1>
+ * <p>
+ *     This class contains basic information
+ *     about a user.
+ * </p>
+ *
+ * @author Leonardo
+ * @version 1.0
+ */
 @Entity
 @Table(name = "tb_user")
 public class User {
@@ -16,9 +26,6 @@ public class User {
 
     @NotBlank
     private String email;
-
-    public User() {
-    }
 
     public User(Long id, String name, String email) {
         this.id = id;

@@ -2,6 +2,16 @@ package com.LeoDuarte37.ForgotPassword_Api.enumeration;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * <h1>Role</h1>
+ * <p>
+ *     This class is responsible for enumerating all
+ *     available user roles.
+ * </p>
+ *
+ * @author Leonardo
+ * @version 1.0
+ */
 public enum Role {
     ADMIN (1),
     MANAGER (2),
@@ -13,6 +23,12 @@ public enum Role {
         this.KEY = key;
     }
 
+    /**
+     * Gets a Role by associated key
+     *
+     * @param key key associated with role.
+     * @return Role by associated key
+     */
     public static Role getRoleByKey(int key) {
         if (key == 1) {
             return ADMIN;
