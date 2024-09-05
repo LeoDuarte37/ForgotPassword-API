@@ -34,6 +34,11 @@ public class JwtServiceImpl implements JwtService {
     @Value("${auth.jwt.token.expiration}")
     private Integer expiration;
 
+    public JwtServiceImpl(String secret, Integer expiration) {
+        this.secret = secret;
+        this.expiration = expiration;
+    }
+
     public String generateToken(String username) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -65,6 +70,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private Instant generateDateExpiration() {
-        return LocalDateTime.now().plusHours(expiration).toInstant(ZoneOffset.of("-03:00"));
+        // return LocalDateTime.now().plusHours(expiration).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusMinutes(expiration).toInstant(ZoneOffset.of("-03:00"));
     }
 }
