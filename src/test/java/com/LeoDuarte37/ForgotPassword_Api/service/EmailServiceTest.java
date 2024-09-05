@@ -1,7 +1,6 @@
 package com.LeoDuarte37.ForgotPassword_Api.service;
 
 import com.LeoDuarte37.ForgotPassword_Api.service.impl.EmailServiceImpl;
-import jakarta.mail.internet.MimeMessage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
